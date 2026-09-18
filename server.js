@@ -1,12 +1,18 @@
 import express from 'express';
+
 const app = express();
+app.set("view engine", "ejs");
+
 const PORT = 3000;
+
 app.get('/', (req, res) => {
   res.send('Hello, web!');
 });
+
 app.get('/about', (req, res) => {
-  res.send('Hello, web!');
+  res.render('about', { title: 'About' });
 });
+
 const projects = [
   { name: 'Weather app', tag: 'javascript' },
   { name: 'Portfolio site', tag: 'express' },
@@ -23,6 +29,15 @@ app.get('/projects', (req, res) => {
   });
 
   res.send(filterProjects);
+});
+
+const events = [
+  { title: 'Career fair' },
+  { title: 'Hackathon kickoff' },
+];
+
+app.get('/events', (req, res) => {
+  res.render('events', { events });
 });
 
 app.listen(PORT, () => {
